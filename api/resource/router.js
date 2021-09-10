@@ -3,21 +3,19 @@ const express = require("express");
 const Resource = require("./model");
 const router = express.Router();
 
-router.post("/", (req, res) => {
-    const reso = req.body
-
-    Resource.add(reso)
-    .then(reso=>{
-        res.status(201).json(reso)
+router.post("/", (req, res, next) => {
+  Resource.add(req.body)
+    .then((resource) => {
+      res.status(201).json(resource);
     })
-    .catch(err=>{
-        console.log(err)
-    })
+    .catch(next);
 });
-router.get("/", (req, res) => {
-  Resource.get().then((resources) => {
-    res.status(200).json(resources);
-  });
+router.get("/", (req, res, next) => {
+  Resource.get()
+    .then((resources) => {
+      res.status(200).json(resources);
+    })
+    .catch(next);
 });
 
 module.exports = router;

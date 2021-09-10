@@ -1,6 +1,6 @@
 exports.up = async function (knex) {
   await knex.schema
-    .createTable("project", (table) => {
+    .createTable("projects", (table) => {
       table.increments("project_id");
       table.string("project_name").notNullable();
       table.string("project_description");
@@ -32,7 +32,7 @@ exports.up = async function (knex) {
         .unsigned()
         .notNullable()
         .references("project_id")
-        .inTable("project")
+        .inTable("projects")
         .onDelete("RESTRICT")
         .onUpdate("RESTRICT");
       table
@@ -51,5 +51,5 @@ exports.down = async function (knex) {
     .dropTableIfExists("project_resources")
     .dropTableIfExists("task")
     .dropTableIfExists("resources")
-    .dropTableIfExists("project");
+    .dropTableIfExists("projects");
 };
